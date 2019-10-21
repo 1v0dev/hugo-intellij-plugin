@@ -10,7 +10,7 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!--<configurationType implementation="com.ivo.dev.intellij.plugin.hugo.DemoRunConfigurationType"/>-->
+        <configurationType implementation="com.ivo.dev.intellij.plugin.hugo.run.HugoRunConfigurationType"/>
     </extensions>
 
     <actions>

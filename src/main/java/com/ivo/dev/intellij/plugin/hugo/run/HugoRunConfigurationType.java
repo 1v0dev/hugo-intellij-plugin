@@ -1,8 +1,10 @@
-package com.ivo.dev.intellij.plugin.hugo;
+package com.ivo.dev.intellij.plugin.hugo.run;
 
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.util.IconLoader;
+
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -11,7 +13,7 @@ public class HugoRunConfigurationType implements ConfigurationType {
 
     @Override
     public String getDisplayName() {
-        return "Hugo Run Configuration";
+        return "Hugo";
     }
 
     @Override
@@ -21,7 +23,8 @@ public class HugoRunConfigurationType implements ConfigurationType {
 
     @Override
     public Icon getIcon() {
-        return AllIcons.General.Information;
+        //return AllIcons.General.Information;
+        return IconLoader.getIcon("/images/hugo-icon-15.png");
     }
 
     @NotNull
@@ -33,7 +36,7 @@ public class HugoRunConfigurationType implements ConfigurationType {
     @Override
     public ConfigurationFactory[] getConfigurationFactories() {
         return new ConfigurationFactory[] {
-                //new DemoConfigurationFactory(this)
+                new HugoConfigurationFactory(this)
         };
     }
 
