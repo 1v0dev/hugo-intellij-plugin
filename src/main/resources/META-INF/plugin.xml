@@ -1,0 +1,18 @@
+<idea-plugin>
+    <id>com.1v0.dev.hugo-intellij-plugin</id>
+    <name>Hugo for Intellij</name>
+    <vendor url="1v0.dev">1v0.dev</vendor>
+
+    <description>
+        add support for Hugo static webiste generator
+    </description>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!--<configurationType implementation="com.ivo.dev.intellij.plugin.hugo.DemoRunConfigurationType"/>-->
+    </extensions>
+
+    <actions>
+    </actions>
+</idea-plugin>
