@@ -15,6 +15,7 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 
+import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,14 +45,21 @@ public class HugoRunConfiguration extends RunConfigurationBase {
     @Override
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment executionEnvironment)
             throws ExecutionException {
-        final CommandLineState state = new CommandLineState(executionEnvironment) {
+
+        return new CommandLineState(executionEnvironment) {
 
             @NotNull
             @Override
             protected ProcessHandler startProcess() throws ExecutionException {
+                HugoSettings hugoSettings = HugoSettings.getInstance(executionEnvironment.getProject());
 
                 GeneralCommandLine commandLine = new GeneralCommandLine();
-                commandLine.setExePath("hugo");
+                if (hugoSettings.isUseCustomPath()) {
+                    commandLine.setExePath(hugoSettings.getCustomHugoPath());
+                } else {
+                    commandLine.setExePath("hugo");
+                }
+
                 commandLine.addParameter("server");
                 if (StringUtils.isNotEmpty(arguments)) {
                     commandLine.addParameter(arguments);
@@ -63,12 +71,8 @@ public class HugoRunConfiguration extends RunConfigurationBase {
                 processHandler.startNotify();
 
                 return processHandler;
-
             }
-
         };
-
-        return state;
     }
 
     public void setArguments(String arguments) {

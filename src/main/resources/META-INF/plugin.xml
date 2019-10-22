@@ -11,6 +11,12 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <configurationType implementation="com.ivo.dev.intellij.plugin.hugo.run.HugoRunConfigurationType"/>
+
+        <projectConfigurable instance="com.ivo.dev.intellij.plugin.hugo.config.HugoSettingsConfigurable"
+                             id="hugo.plugin.settings" displayName="Hugo Plugin" nonDefaultProject="true"
+                             groupId="tools" />
+
+        <projectService serviceImplementation="com.ivo.dev.intellij.plugin.hugo.config.HugoSettings"/>
     </extensions>
 
     <actions>
