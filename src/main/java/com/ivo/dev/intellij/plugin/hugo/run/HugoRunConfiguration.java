@@ -15,10 +15,13 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HugoRunConfiguration extends RunConfigurationBase {
+
+    private String arguments;
 
     protected HugoRunConfiguration(@NotNull Project project,
                                    @Nullable ConfigurationFactory factory,
@@ -49,7 +52,10 @@ public class HugoRunConfiguration extends RunConfigurationBase {
 
                 GeneralCommandLine commandLine = new GeneralCommandLine();
                 commandLine.setExePath("hugo");
-                commandLine.addParameters("server", "-D");
+                commandLine.addParameter("server");
+                if (StringUtils.isNotEmpty(arguments)) {
+                    commandLine.addParameter(arguments);
+                }
                 commandLine.setWorkDirectory(executionEnvironment.getProject().getBasePath());
                 commandLine.createProcess();
 
@@ -63,6 +69,10 @@ public class HugoRunConfiguration extends RunConfigurationBase {
         };
 
         return state;
+    }
+
+    public void setArguments(String arguments) {
+        this.arguments = arguments;
     }
 
 }

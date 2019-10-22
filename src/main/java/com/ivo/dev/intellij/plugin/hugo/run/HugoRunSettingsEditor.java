@@ -9,15 +9,16 @@ import javax.swing.*;
 
 public class HugoRunSettingsEditor extends SettingsEditor<HugoRunConfiguration> {
     private JPanel myPanel;
+    private JTextField argumentsField;
 
     @Override
     protected void resetEditorFrom(@NotNull HugoRunConfiguration s) {
-
+        s.setArguments(null);
     }
 
     @Override
     protected void applyEditorTo(@NotNull HugoRunConfiguration s) throws ConfigurationException {
-
+        s.setArguments(argumentsField.getText());
     }
 
     @NotNull
