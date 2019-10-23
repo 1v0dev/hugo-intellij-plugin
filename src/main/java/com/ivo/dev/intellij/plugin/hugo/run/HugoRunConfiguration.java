@@ -4,7 +4,6 @@ import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunConfigurationBase;
 import com.intellij.execution.configurations.RunProfileState;
@@ -17,7 +16,8 @@ import com.intellij.openapi.project.Project;
 
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.JDOMExternalizerUtil;
-import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
+import com.ivo.dev.intellij.plugin.hugo.util.HugoCommandUtil;
+
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
@@ -57,25 +57,8 @@ public class HugoRunConfiguration extends RunConfigurationBase {
             @NotNull
             @Override
             protected ProcessHandler startProcess() throws ExecutionException {
-                HugoSettings hugoSettings = HugoSettings.getInstance(executionEnvironment.getProject());
-
-                GeneralCommandLine commandLine = new GeneralCommandLine();
-                if (hugoSettings.isUseCustomPath()) {
-                    commandLine.setExePath(hugoSettings.getCustomHugoPath());
-                } else {
-                    commandLine.setExePath("hugo");
-                }
-
-                if (runServer) {
-                    commandLine.addParameter("server");
-                }
-
-                if (StringUtils.isNotEmpty(arguments)) {
-                    commandLine.addParameter(arguments);
-                }
-                commandLine.setWorkDirectory(executionEnvironment.getProject().getBasePath());
-
-                OSProcessHandler processHandler = new OSProcessHandler(commandLine);
+                OSProcessHandler processHandler = new OSProcessHandler(
+                        HugoCommandUtil.createHugoCommand(runServer, arguments, executionEnvironment.getProject()));
                 processHandler.startNotify();
 
                 return processHandler;
@@ -87,15 +70,14 @@ public class HugoRunConfiguration extends RunConfigurationBase {
     public void writeExternal(@NotNull Element element) {
         super.writeExternal(element);
         JDOMExternalizerUtil.writeField(element, KEY_ARGUMENTS, arguments);
-        JDOMExternalizerUtil.writeField(element, KEY_RUN_SERVER, Boolean.toString(runServer));
+        JDOMExternalizerUtil.writeField(element, KEY_RUN_SERVER, runServer ? "run" : "no");
     }
 
     @Override
     public void readExternal(@NotNull Element element) throws InvalidDataException {
         super.readExternal(element);
         arguments = JDOMExternalizerUtil.readField(element, KEY_ARGUMENTS);
-        runServer = Boolean.getBoolean(StringUtils
-                .defaultIfEmpty(JDOMExternalizerUtil.readField(element, KEY_RUN_SERVER), "true"));
+        runServer = "run".equals(JDOMExternalizerUtil.readField(element, KEY_RUN_SERVER));
     }
 
     public String getArguments() {

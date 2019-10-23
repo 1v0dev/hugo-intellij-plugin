@@ -20,5 +20,10 @@
     </extensions>
 
     <actions>
+        <action id="com.ivo.dev.intellij.plugin.hugo.action.NewAction" icon="/images/hugo-icon-15.png"
+                class="com.ivo.dev.intellij.plugin.hugo.action.NewAction" text="Hugo New"
+                description="Run &#39;hugo new&#39; in the current directory">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
     </actions>
 </idea-plugin>
