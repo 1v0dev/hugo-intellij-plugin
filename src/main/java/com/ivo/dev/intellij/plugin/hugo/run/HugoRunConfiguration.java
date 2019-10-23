@@ -65,7 +65,6 @@ public class HugoRunConfiguration extends RunConfigurationBase {
                     commandLine.addParameter(arguments);
                 }
                 commandLine.setWorkDirectory(executionEnvironment.getProject().getBasePath());
-                commandLine.createProcess();
 
                 OSProcessHandler processHandler = new OSProcessHandler(commandLine);
                 processHandler.startNotify();
@@ -78,5 +77,4 @@ public class HugoRunConfiguration extends RunConfigurationBase {
     public void setArguments(String arguments) {
         this.arguments = arguments;
     }
-
 }
