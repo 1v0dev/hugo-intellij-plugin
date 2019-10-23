@@ -10,15 +10,23 @@ import javax.swing.*;
 public class HugoRunSettingsEditor extends SettingsEditor<HugoRunConfiguration> {
     private JPanel myPanel;
     private JTextField argumentsField;
+    private JRadioButton hugoServerRadioButton;
+    private JRadioButton hugoRadioButton;
 
     @Override
     protected void resetEditorFrom(@NotNull HugoRunConfiguration s) {
-        s.setArguments(null);
+        argumentsField.setText(s.getArguments());
+        if (s.isRunServer()) {
+            hugoServerRadioButton.setSelected(true);
+        } else {
+            hugoRadioButton.setSelected(true);
+        }
     }
 
     @Override
     protected void applyEditorTo(@NotNull HugoRunConfiguration s) throws ConfigurationException {
         s.setArguments(argumentsField.getText());
+        s.setRunServer(hugoServerRadioButton.isSelected());
     }
 
     @NotNull
@@ -26,6 +34,8 @@ public class HugoRunSettingsEditor extends SettingsEditor<HugoRunConfiguration> 
     protected JComponent createEditor() {
         return myPanel;
     }
+
+
 
 
 }
