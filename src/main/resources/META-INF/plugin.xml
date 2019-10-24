@@ -1,11 +1,13 @@
 <idea-plugin>
     <id>com.1v0.dev.hugo-intellij-plugin</id>
-    <name>Hugo for Intellij</name>
+    <name>Hugo Integration</name>
     <vendor url="1v0.dev">1v0.dev</vendor>
 
     <description>
-        add support for Hugo static webiste generator
+        Integrates Hugo static web site generator
     </description>
+
+    <version>0.1</version>
 
     <depends>com.intellij.modules.lang</depends>
 
