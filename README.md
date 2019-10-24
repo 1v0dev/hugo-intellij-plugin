@@ -7,7 +7,7 @@ Hugo static site generator plugin for Intellij
 * Added action to New group of Project View context menu to execute `hugo new`
 * Allow to manually set the path to Hugo executable in `Settings - Tools - Hugo Plugin`
 
-*Note: If the Hugo executable is not in you* `PATH` *variable, you have to set the path in the settings*
+*Note: If the Hugo executable is not in your* `PATH` *variable, you have to set the path in the settings*
 
 **Planned features**
 * Hugo Facet to automatically add run configuration when starting a new project
