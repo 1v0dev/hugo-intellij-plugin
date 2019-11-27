@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
 
 public class HugoCommandUtil {
 
-    public static GeneralCommandLine createHugoCommand(boolean runServer, String arguments, Project project) {
+    public static GeneralCommandLine createHugoCommand(boolean runServer, String arguments, Project project,
+                                                       String workingDir) {
         HugoSettings hugoSettings = HugoSettings.getInstance(project);
 
         GeneralCommandLine commandLine = new GeneralCommandLine();
@@ -18,6 +19,12 @@ public class HugoCommandUtil {
             commandLine.setExePath("hugo");
         }
 
+        if (StringUtils.isNotEmpty(workingDir)) {
+            commandLine.setWorkDirectory(workingDir);
+        } else {
+            commandLine.setWorkDirectory(project.getBasePath());
+        }
+
         if (runServer) {
             commandLine.addParameter("server");
         }
@@ -25,7 +32,6 @@ public class HugoCommandUtil {
         if (StringUtils.isNotEmpty(arguments)) {
             commandLine.addParameters(arguments.trim().split("\\s+"));
         }
-        commandLine.setWorkDirectory(project.getBasePath());
 
         return commandLine;
     }

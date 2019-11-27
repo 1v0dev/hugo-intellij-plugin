@@ -43,7 +43,7 @@ public class NewAction extends AnAction {
             sb.append(" ").append(dto.getArguments());
         }
 
-        GeneralCommandLine command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project);
+        GeneralCommandLine command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project, null);
         try {
             command.createProcess().waitFor(15, TimeUnit.SECONDS);
             vf.refresh(false, true);

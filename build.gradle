@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.1'
+version '0.2'
 
 sourceCompatibility = 1.8
 
@@ -22,5 +22,5 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      Initial Release</em>"""
+      Added custom hugo project directory setting in the run configuration"""
 }

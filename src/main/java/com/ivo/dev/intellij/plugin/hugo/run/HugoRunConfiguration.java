@@ -27,8 +27,10 @@ public class HugoRunConfiguration extends RunConfigurationBase {
 
     private String arguments;
     private boolean runServer = true;
+    private String customProjectDir;
     private final String KEY_ARGUMENTS = "hugo.plugin.arguments";
     private final String KEY_RUN_SERVER = "hugo.plugin.run.server";
+    private final String KEY_CUSTOM_PROJECT_DIR = "hugo.plugin.custom.project.dir";
 
     protected HugoRunConfiguration(@NotNull Project project,
                                    @Nullable ConfigurationFactory factory,
@@ -58,7 +60,8 @@ public class HugoRunConfiguration extends RunConfigurationBase {
             @Override
             protected ProcessHandler startProcess() throws ExecutionException {
                 OSProcessHandler processHandler = new OSProcessHandler(
-                        HugoCommandUtil.createHugoCommand(runServer, arguments, executionEnvironment.getProject()));
+                        HugoCommandUtil.createHugoCommand(runServer, arguments,
+                                executionEnvironment.getProject(), customProjectDir));
                 processHandler.startNotify();
 
                 return processHandler;
@@ -71,6 +74,7 @@ public class HugoRunConfiguration extends RunConfigurationBase {
         super.writeExternal(element);
         JDOMExternalizerUtil.writeField(element, KEY_ARGUMENTS, arguments);
         JDOMExternalizerUtil.writeField(element, KEY_RUN_SERVER, runServer ? "run" : "no");
+        JDOMExternalizerUtil.writeField(element, KEY_CUSTOM_PROJECT_DIR, customProjectDir);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class HugoRunConfiguration extends RunConfigurationBase {
         super.readExternal(element);
         arguments = JDOMExternalizerUtil.readField(element, KEY_ARGUMENTS);
         runServer = "run".equals(JDOMExternalizerUtil.readField(element, KEY_RUN_SERVER));
+        customProjectDir = JDOMExternalizerUtil.readField(element, KEY_CUSTOM_PROJECT_DIR);
     }
 
     public String getArguments() {
@@ -94,5 +99,13 @@ public class HugoRunConfiguration extends RunConfigurationBase {
 
     public void setRunServer(boolean runServer) {
         this.runServer = runServer;
+    }
+
+    public String getCustomProjectDir() {
+        return customProjectDir;
+    }
+
+    public void setCustomProjectDir(String customProjectDir) {
+        this.customProjectDir = customProjectDir;
     }
 }
