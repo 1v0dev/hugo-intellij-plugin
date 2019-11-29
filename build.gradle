@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.2'
+version '0.2.1'
 
 sourceCompatibility = 1.8
 
@@ -18,9 +18,15 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.2.3'
+    version '2019.3'
 }
 patchPluginXml {
+    sinceBuild '191'
     changeNotes """
-      Added custom hugo project directory setting in the run configuration"""
+      Set Intellij compatible versions range to 181-current. 
+      This will allow the plugin to be used with any version since 2019.1"""
+}
+
+publishPlugin {
+    token intellijPublishToken
 }
