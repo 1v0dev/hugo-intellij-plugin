@@ -18,6 +18,8 @@ public class HugoSettings implements PersistentStateComponent<HugoSettings> {
 
     private String customHugoPath;
 
+    private String defaultHugoNewOptions;
+
     public HugoSettings() {
         useCustomPath = false;
     }
@@ -47,6 +49,14 @@ public class HugoSettings implements PersistentStateComponent<HugoSettings> {
 
     public void setCustomHugoPath(String customHugoPath) {
         this.customHugoPath = customHugoPath;
+    }
+
+    public String getDefaultHugoNewOptions() {
+        return defaultHugoNewOptions;
+    }
+
+    public void setDefaultHugoNewOptions(String defaultHugoNewOptions) {
+        this.defaultHugoNewOptions = defaultHugoNewOptions;
     }
 
     public static HugoSettings getInstance(Project project) {

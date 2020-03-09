@@ -15,11 +15,13 @@ public class HugoConfigurationFactory extends ConfigurationFactory {
         super(type);
     }
 
+    @NotNull
     @Override
-    public RunConfiguration createTemplateConfiguration(Project project) {
+    public RunConfiguration createTemplateConfiguration(@NotNull Project project) {
         return new HugoRunConfiguration(project, this, "Hugo");
     }
 
+    @NotNull
     @Override
     public String getName() {
         return FACTORY_NAME;

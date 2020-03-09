@@ -4,6 +4,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.ValidationInfo;
 
+import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,6 +22,11 @@ public class NewActionDialog extends DialogWrapper {
         init();
         setTitle("Hugo New");
         setAutoAdjustable(true);
+
+        HugoSettings hugoSettings = HugoSettings.getInstance(project);
+        if (StringUtils.isNotEmpty(hugoSettings.getDefaultHugoNewOptions())) {
+            argumentsField.setText(hugoSettings.getDefaultHugoNewOptions());
+        }
     }
 
     @Nullable
@@ -40,7 +46,7 @@ public class NewActionDialog extends DialogWrapper {
     @Override
     protected ValidationInfo doValidate() {
         if (StringUtils.isEmpty(fileNameField.getText())) {
-            return new ValidationInfo("File name can not be empty", fileNameField);
+            return new ValidationInfo("File name cannot be empty", fileNameField);
         }
         return null;
     }

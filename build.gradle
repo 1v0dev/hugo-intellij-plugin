@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.10'
+    id 'org.jetbrains.intellij' version '0.4.16'
 }
 
 group 'com.1v0.dev'
-version '0.2.1'
+version '0.3.0'
 
 sourceCompatibility = 1.8
 
@@ -23,8 +23,7 @@ intellij {
 patchPluginXml {
     sinceBuild '191'
     changeNotes """
-      Set Intellij compatible versions range to 181-current. 
-      This will allow the plugin to be used with any version since 2019.1"""
+      Add option to set default arguments to be passed to hugo new"""
 }
 
 publishPlugin {

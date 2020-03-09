@@ -1,21 +1,20 @@
 package com.ivo.dev.intellij.plugin.hugo.config;
 
-import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import org.apache.commons.lang.StringUtils;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HugoSettingsEditor {
     private JCheckBox pathToHugoExecutableCheckBox;
     private TextFieldWithBrowseButton customHugoPathField;
     private JPanel settingsPanel;
+    private JTextField defaultHugoNewOptionsField;
     private HugoSettings hugoSettings;
 
     public HugoSettingsEditor(HugoSettings hugoSettings, Project project) {
@@ -26,12 +25,12 @@ public class HugoSettingsEditor {
             customHugoPathField.setText(hugoSettings.getCustomHugoPath());
         }
 
-        pathToHugoExecutableCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                customHugoPathField.setEnabled(pathToHugoExecutableCheckBox.isSelected());
-            }
-        });
+        if (StringUtils.isNotEmpty(hugoSettings.getDefaultHugoNewOptions())) {
+            defaultHugoNewOptionsField.setText(hugoSettings.getDefaultHugoNewOptions());
+        }
+
+        pathToHugoExecutableCheckBox.addActionListener(
+            actionEvent -> customHugoPathField.setEnabled(pathToHugoExecutableCheckBox.isSelected()));
 
         FileChooserDescriptor fcd = FileChooserDescriptorFactory.createSingleFileDescriptor();
         customHugoPathField.addBrowseFolderListener("Select Hugo Executable", null, project, fcd);
@@ -43,15 +42,17 @@ public class HugoSettingsEditor {
 
     public boolean isModified() {
         return hugoSettings.isUseCustomPath() != pathToHugoExecutableCheckBox.isSelected()
-                || !customHugoPathField.getText().equals(hugoSettings.getCustomHugoPath());
+                || !customHugoPathField.getText().equals(hugoSettings.getCustomHugoPath())
+                || !defaultHugoNewOptionsField.getText().equals(hugoSettings.getDefaultHugoNewOptions());
     }
 
     public void apply() throws ConfigurationException {
         if (pathToHugoExecutableCheckBox.isSelected() && StringUtils.isEmpty(customHugoPathField.getText())) {
-            throw new ConfigurationException("The path can not be empty");
+            throw new ConfigurationException("The path cannot be empty");
         }
 
         hugoSettings.setUseCustomPath(pathToHugoExecutableCheckBox.isSelected());
         hugoSettings.setCustomHugoPath(customHugoPathField.getText());
+        hugoSettings.setDefaultHugoNewOptions(defaultHugoNewOptionsField.getText());
     }
 }
