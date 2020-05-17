@@ -7,6 +7,7 @@ import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
@@ -41,10 +42,11 @@ public class NewAction extends AnAction {
 
         GeneralCommandLine command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project, null);
         try {
+            FileDocumentManager.getInstance().saveAllDocuments();
             command.createProcess().waitFor(15, TimeUnit.SECONDS);
             vf.refresh(false, true);
         } catch (Exception e) {
-            Notification ntf = new Notification("Hugo Notifications", "Hugo New Error",
+            Notification ntf = new Notification("Hugo Notifications", "Hugo new error",
                     e.getMessage(), NotificationType.ERROR);
             Notifications.Bus.notify(ntf);
         }

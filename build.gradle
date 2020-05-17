@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.3.1'
+version '0.3.2'
 
 sourceCompatibility = 1.8
 
@@ -23,7 +23,7 @@ intellij {
 patchPluginXml {
     sinceBuild '191'
     changeNotes """
-      Add support for intellij 2020.1"""
+      Run save all before executing Hugo New. That will prevent using outdated archetypes"""
 }
 
 publishPlugin {
