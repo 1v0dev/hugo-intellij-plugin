@@ -26,4 +26,10 @@ public class HugoConfigurationFactory extends ConfigurationFactory {
     public String getName() {
         return FACTORY_NAME;
     }
+
+    @NotNull
+    @Override
+    public java.lang.String getId() {
+        return FACTORY_NAME;
+    }
 }
