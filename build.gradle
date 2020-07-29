@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.18'
+    id 'org.jetbrains.intellij' version '0.4.21'
 }
 
 group 'com.1v0.dev'
-version '0.3.2'
+version '0.3.3'
 
 sourceCompatibility = 1.8
 
@@ -18,12 +18,12 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1'
+    version '2020.2'
 }
 patchPluginXml {
     sinceBuild '191'
     changeNotes """
-      Run save all before executing Hugo New. That will prevent using outdated archetypes"""
+      Add support for version 2020.2"""
 }
 
 publishPlugin {
