@@ -14,6 +14,7 @@ public class NewActionDialog extends DialogWrapper {
     private JPanel dialogPanel;
     private JTextField fileNameField;
     private JTextField argumentsField;
+    private JCheckBox createBundleCheckBox;
     private NewActionDTO dto;
 
     protected NewActionDialog(@Nullable Project project, NewActionDTO dto) {
@@ -39,6 +40,7 @@ public class NewActionDialog extends DialogWrapper {
     protected void doOKAction() {
         dto.setFileName(fileNameField.getText());
         dto.setArguments(argumentsField.getText());
+        dto.setCreateBundle(createBundleCheckBox.isSelected());
         super.doOKAction();
     }
 

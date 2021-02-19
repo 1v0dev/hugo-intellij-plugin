@@ -16,13 +16,13 @@ public class HugoRunConfigurationType implements ConfigurationType {
 
     @Override
     public String getConfigurationTypeDescription() {
-        return "Run Configuration for Hugo Server";
+        return "Run configuration for Hugo Server";
     }
 
     @Override
     public Icon getIcon() {
         //return AllIcons.General.Information;
-        return IconLoader.getIcon("/images/hugo-icon-15.png");
+        return IconLoader.getIcon("/images/hugo-icon-15.png", HugoRunConfigurationType.class);
     }
 
     @NotNull

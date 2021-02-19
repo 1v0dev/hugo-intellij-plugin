@@ -16,6 +16,8 @@ public class HugoSettings implements PersistentStateComponent<HugoSettings> {
 
     private boolean useCustomPath;
 
+    private boolean autoFormatFileName;
+
     private String customHugoPath;
 
     private String defaultHugoNewOptions;
@@ -61,5 +63,13 @@ public class HugoSettings implements PersistentStateComponent<HugoSettings> {
 
     public static HugoSettings getInstance(Project project) {
         return ServiceManager.getService(project, HugoSettings.class);
+    }
+
+    public boolean isAutoFormatFileName() {
+        return autoFormatFileName;
+    }
+
+    public void setAutoFormatFileName(boolean autoFormatFileName) {
+        this.autoFormatFileName = autoFormatFileName;
     }
 }

@@ -15,11 +15,13 @@ public class HugoSettingsEditor {
     private TextFieldWithBrowseButton customHugoPathField;
     private JPanel settingsPanel;
     private JTextField defaultHugoNewOptionsField;
+    private JCheckBox autoFormatFileNameCheckBox;
     private HugoSettings hugoSettings;
 
     public HugoSettingsEditor(HugoSettings hugoSettings, Project project) {
         this.hugoSettings = hugoSettings;
         pathToHugoExecutableCheckBox.setSelected(hugoSettings.isUseCustomPath());
+        autoFormatFileNameCheckBox.setSelected(hugoSettings.isAutoFormatFileName());
         customHugoPathField.setEnabled(hugoSettings.isUseCustomPath());
         if (StringUtils.isNotEmpty(hugoSettings.getCustomHugoPath())) {
             customHugoPathField.setText(hugoSettings.getCustomHugoPath());
@@ -43,7 +45,8 @@ public class HugoSettingsEditor {
     public boolean isModified() {
         return hugoSettings.isUseCustomPath() != pathToHugoExecutableCheckBox.isSelected()
                 || !customHugoPathField.getText().equals(hugoSettings.getCustomHugoPath())
-                || !defaultHugoNewOptionsField.getText().equals(hugoSettings.getDefaultHugoNewOptions());
+                || !defaultHugoNewOptionsField.getText().equals(hugoSettings.getDefaultHugoNewOptions())
+                || hugoSettings.isAutoFormatFileName() != autoFormatFileNameCheckBox.isSelected();
     }
 
     public void apply() throws ConfigurationException {
@@ -54,5 +57,6 @@ public class HugoSettingsEditor {
         hugoSettings.setUseCustomPath(pathToHugoExecutableCheckBox.isSelected());
         hugoSettings.setCustomHugoPath(customHugoPathField.getText());
         hugoSettings.setDefaultHugoNewOptions(defaultHugoNewOptionsField.getText());
+        hugoSettings.setAutoFormatFileName(autoFormatFileNameCheckBox.isSelected());
     }
 }

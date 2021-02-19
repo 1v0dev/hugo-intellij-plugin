@@ -11,6 +11,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
+import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
 import com.ivo.dev.intellij.plugin.hugo.util.HugoCommandUtil;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.StringUtils;
@@ -34,14 +35,30 @@ public class NewAction extends AnAction {
     }
 
     private void runNewCommand(NewActionDTO dto, VirtualFile vf, Project project) {
+        GeneralCommandLine command;
+        HugoSettings hugoSettings = HugoSettings.getInstance(project);
         StringBuilder sb = new StringBuilder("new ");
-        sb.append(vf.getPath()).append("/").append(dto.getFileName());
-        if (StringUtils.isNotBlank(dto.getArguments())) {
-            sb.append(" ").append(dto.getArguments());
-        }
+        String fileName = dto.getFileName();
 
-        GeneralCommandLine command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project, null);
         try {
+            if (hugoSettings.isAutoFormatFileName()) {
+                fileName = fileName.replaceAll(" ", "_");
+            }
+
+            if (dto.isCreateBundle()) {
+                vf.createChildDirectory(project, fileName);
+                fileName = fileName + "/index.md";
+            } else if (hugoSettings.isAutoFormatFileName() && !fileName.endsWith(".md")) {
+                fileName = fileName + ".md";
+            }
+
+            sb.append(vf.getPath()).append("/").append(fileName);
+            if (StringUtils.isNotBlank(dto.getArguments())) {
+                sb.append(" ").append(dto.getArguments());
+            }
+
+            command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project, null);
+
             FileDocumentManager.getInstance().saveAllDocuments();
             command.createProcess().waitFor(15, TimeUnit.SECONDS);
             vf.refresh(false, true);
