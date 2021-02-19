@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.3.5'
+version '0.4.0'
 
 sourceCompatibility = 1.8
 
@@ -23,7 +23,8 @@ intellij {
 patchPluginXml {
     sinceBuild '192'
     changeNotes """
-      Add support for version 2020.3"""
+      Add option to auto format file name for Hugo New
+      Add option to create a bundle instead of a file for Hugo New"""
 }
 
 publishPlugin {
