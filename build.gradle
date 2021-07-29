@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.4.1'
+version '0.4.2'
 
 sourceCompatibility = 1.8
 
@@ -18,12 +18,12 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2021.1'
+    version '2021.2'
 }
 patchPluginXml {
     sinceBuild '192'
     changeNotes """
-      Add support for version 2021.1"""
+      Add support for version 2021.2"""
 }
 
 publishPlugin {
