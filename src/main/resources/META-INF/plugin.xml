@@ -7,7 +7,7 @@
         Integrates Hugo static web site generator
     </description>
 
-    <version>0.4.2</version>
+    <version>0.4.3</version>
 
     <depends>com.intellij.modules.lang</depends>
 
