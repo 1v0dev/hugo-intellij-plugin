@@ -62,7 +62,7 @@ public class HugoSettings implements PersistentStateComponent<HugoSettings> {
     }
 
     public static HugoSettings getInstance(Project project) {
-        return project.getService(HugoSettings.class);
+        return ServiceManager.getService(project, HugoSettings.class);
     }
 
     public boolean isAutoFormatFileName() {
