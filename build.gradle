@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.21'
+    id "org.jetbrains.intellij" version "1.5.3"
 }
 
 group 'com.1v0.dev'
@@ -12,20 +12,17 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2022.1'
+    version = '2022.1'
 }
+
 patchPluginXml {
-    sinceBuild '192'
-    changeNotes """
+    sinceBuild = '192'
+    changeNotes = """
       Add support for version 2022.1"""
 }
 
 publishPlugin {
-    token intellijPublishToken
+    token = intellijPublishToken
 }
