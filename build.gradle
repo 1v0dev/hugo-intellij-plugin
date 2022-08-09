@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.4.6'
+version '0.4.7'
 
 sourceCompatibility = 1.8
 
@@ -20,7 +20,7 @@ intellij {
 patchPluginXml {
     sinceBuild = '192'
     changeNotes = """
-      Add support for version 2022.2"""
+      Enable relative working directorties. Thanks @blaubaer"""
 }
 
 publishPlugin {
