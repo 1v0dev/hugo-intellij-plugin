@@ -1,5 +1,7 @@
 package com.ivo.dev.intellij.plugin.hugo.util;
 
+import java.nio.file.Path;
+
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.openapi.project.Project;
 import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
@@ -20,7 +22,7 @@ public class HugoCommandUtil {
         }
 
         if (StringUtils.isNotEmpty(workingDir)) {
-            commandLine.setWorkDirectory(workingDir);
+            commandLine.setWorkDirectory(resolveWorkingDir(project, workingDir));
         } else {
             commandLine.setWorkDirectory(project.getBasePath());
         }
@@ -34,6 +36,23 @@ public class HugoCommandUtil {
         }
 
         return commandLine;
+    }
+
+    private static String resolveWorkingDir(Project project, String workingDir) {
+        String projectBasePath = project.getBasePath();
+        if (projectBasePath == null) {
+            return workingDir;
+        }
+
+        Path workingDirPath = Path.of(workingDir);
+        if (workingDirPath.isAbsolute()) {
+            return workingDir;
+        }
+
+        return Path.of(projectBasePath)
+            .resolve(workingDirPath)
+            .toAbsolutePath()
+            .toString();
     }
 
 }
