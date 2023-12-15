@@ -26,4 +26,3 @@ patchPluginXml {
 publishPlugin {
     token = intellijPublishToken
 }
-º
