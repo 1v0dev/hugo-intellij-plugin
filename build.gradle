@@ -14,15 +14,16 @@ repositories {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = '2023.2'
+    version = '2023.3'
 }
 
 patchPluginXml {
     sinceBuild = '192'
     changeNotes = """
-      Add support for 2023.2"""
+      Add support for 2023.3"""
 }
 
 publishPlugin {
     token = intellijPublishToken
 }
+º
