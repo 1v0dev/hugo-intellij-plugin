@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.1v0.dev'
-version '0.4.12'
+version '0.4.13'
 
 sourceCompatibility = 1.8
 
@@ -14,13 +14,13 @@ repositories {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = '2024.1'
+    version = '2024.2'
 }
 
 patchPluginXml {
     sinceBuild = '192'
     changeNotes = """
-      Add support for 2024.1"""
+      Add support for 2024.2"""
 }
 
 publishPlugin {
