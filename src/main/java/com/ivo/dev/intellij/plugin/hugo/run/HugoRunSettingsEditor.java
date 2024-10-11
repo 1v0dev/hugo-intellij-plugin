@@ -31,7 +31,7 @@ public class HugoRunSettingsEditor extends SettingsEditor<HugoRunConfiguration> 
         customProjectDir.addBrowseFolderListener("Select Hugo Project Directory",
                 null, s.getProject(), fcd);
 
-        if (StringUtils.isNotEmpty(s.getCustomProjectDir())) {
+        if (s.getCustomProjectDir() != null && !s.getCustomProjectDir().isEmpty()) {
             customProjectDir.setText(s.getCustomProjectDir());
         }
     }

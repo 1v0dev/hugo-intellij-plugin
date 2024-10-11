@@ -21,7 +21,7 @@ public class HugoCommandUtil {
             commandLine.setExePath("hugo");
         }
 
-        if (StringUtils.isNotEmpty(workingDir)) {
+        if (workingDir != null && !workingDir.isEmpty()) {
             commandLine.setWorkDirectory(resolveWorkingDir(project, workingDir));
         } else {
             commandLine.setWorkDirectory(project.getBasePath());
@@ -31,7 +31,7 @@ public class HugoCommandUtil {
             commandLine.addParameter("server");
         }
 
-        if (StringUtils.isNotEmpty(arguments)) {
+        if (arguments != null && !arguments.isEmpty()) {
             commandLine.addParameters(arguments.trim().split("\\s+"));
         }
 

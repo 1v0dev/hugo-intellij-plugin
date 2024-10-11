@@ -23,11 +23,11 @@ public class HugoSettingsEditor {
         pathToHugoExecutableCheckBox.setSelected(hugoSettings.isUseCustomPath());
         autoFormatFileNameCheckBox.setSelected(hugoSettings.isAutoFormatFileName());
         customHugoPathField.setEnabled(hugoSettings.isUseCustomPath());
-        if (StringUtils.isNotEmpty(hugoSettings.getCustomHugoPath())) {
+        if (hugoSettings.getCustomHugoPath() != null && !hugoSettings.getCustomHugoPath().isEmpty()) {
             customHugoPathField.setText(hugoSettings.getCustomHugoPath());
         }
 
-        if (StringUtils.isNotEmpty(hugoSettings.getDefaultHugoNewOptions())) {
+        if (hugoSettings.getDefaultHugoNewOptions() != null && !hugoSettings.getDefaultHugoNewOptions().isEmpty()) {
             defaultHugoNewOptionsField.setText(hugoSettings.getDefaultHugoNewOptions());
         }
 
@@ -50,9 +50,10 @@ public class HugoSettingsEditor {
     }
 
     public void apply() throws ConfigurationException {
-        if (pathToHugoExecutableCheckBox.isSelected() && StringUtils.isEmpty(customHugoPathField.getText())) {
+        if (pathToHugoExecutableCheckBox.isSelected() && customHugoPathField.getText().isEmpty()) {
             throw new ConfigurationException("The path cannot be empty");
         }
+
 
         hugoSettings.setUseCustomPath(pathToHugoExecutableCheckBox.isSelected());
         hugoSettings.setCustomHugoPath(customHugoPathField.getText());

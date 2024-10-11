@@ -25,7 +25,7 @@ public class NewActionDialog extends DialogWrapper {
         setAutoAdjustable(true);
 
         HugoSettings hugoSettings = HugoSettings.getInstance(project);
-        if (StringUtils.isNotEmpty(hugoSettings.getDefaultHugoNewOptions())) {
+        if (hugoSettings.getDefaultHugoNewOptions() != null && !hugoSettings.getDefaultHugoNewOptions().isEmpty()) {
             argumentsField.setText(hugoSettings.getDefaultHugoNewOptions());
         }
     }
@@ -47,7 +47,7 @@ public class NewActionDialog extends DialogWrapper {
     @Nullable
     @Override
     protected ValidationInfo doValidate() {
-        if (StringUtils.isEmpty(fileNameField.getText())) {
+        if (fileNameField.getText() == null || fileNameField.getText().isEmpty()) {
             return new ValidationInfo("File name cannot be empty", fileNameField);
         }
         return null;

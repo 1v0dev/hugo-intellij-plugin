@@ -15,7 +15,6 @@ import com.intellij.psi.PsiDirectory;
 import com.ivo.dev.intellij.plugin.hugo.config.HugoSettings;
 import com.ivo.dev.intellij.plugin.hugo.util.HugoCommandUtil;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class NewAction extends AnAction {
@@ -54,14 +53,19 @@ public class NewAction extends AnAction {
             }
 
             sb.append(vf.getPath()).append("/").append(fileName);
-            if (StringUtils.isNotBlank(dto.getArguments())) {
+            if (dto.getArguments() != null && !dto.getArguments().trim().isEmpty()) {
                 sb.append(" ").append(dto.getArguments());
             }
 
             command = HugoCommandUtil.createHugoCommand(false, sb.toString(), project, null);
 
             FileDocumentManager.getInstance().saveAllDocuments();
-            command.createProcess().waitFor(15, TimeUnit.SECONDS);
+            Process process = command.createProcess();
+            boolean completed = process.waitFor(15, TimeUnit.SECONDS);
+            if (!completed) {
+                System.out.println("Process timed out.");
+                process.destroy();
+            }
             vf.refresh(false, true);
         } catch (Exception e) {
             Notification ntf = new Notification("Hugo Notifications", "Hugo new error",
